@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Slider from 'react-slick'
 import Cebu from '@/assets/images/cebu.jpeg'
@@ -9,17 +9,21 @@ import Palawan from '@/assets/images/palawan.jpeg'
 import Mayon from '@/assets/images/mayon.jpeg'
 import Teracess from '@/assets/images/terraces.jpeg'
 
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+let images = [Cebu, Palawan, Mayon, Teracess, Cebu, Palawan, Mayon, Teracess]
 
 function Heritage() {
+	const [currIndex, setCurrIndex] = useState(0)
 	const settings = {
 		className: 'center',
 		centerMode: true,
+		dots: true,
 		infinite: true,
-		centerPadding: '60px',
+		centerPadding: '50px',
 		slidesToShow: 3,
-		speed: 500,
+		autoplay: true,
+		autoplaySpeed: 2000,
+		cssEase: 'ease-out',
+		beforeChange: (current, next) => setCurrIndex(next),
 	}
 	return (
 		<div className="h-[100vh] float-left text-neutral-900 w-full flex items-center justify-center">
@@ -33,66 +37,25 @@ function Heritage() {
 					className="h-fit mt-[50px]"
 					{...settings}
 				>
-					<img
-						src="https://images.pexels.com/photos/2798477/pexels-photo-2798477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-						alt="React Image"
-					/>
-					<img
-						src="https://images.pexels.com/photos/1364554/pexels-photo-1364554.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-						alt="React Image"
-					/>
-					<img
-						src="https://images.pexels.com/photos/1364558/pexels-photo-1364558.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-						alt="React Image"
-					/>
-					<img
-						src="https://images.pexels.com/photos/2798477/pexels-photo-2798477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-						alt="React Image"
-					/>
-					<img
-						src="https://images.pexels.com/photos/1364554/pexels-photo-1364554.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-						alt="React Image"
-					/>
-					<img
-						src="https://images.pexels.com/photos/1364558/pexels-photo-1364558.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-						alt="React Image"
-					/>
-
-					{/* <Image
-						src={Cebu}
-						alt="Cebu"
-						width={100}
-						height={350}
-						className="max-h-[350px] mx-[20px"
-					/>
-					<Image
-						src={Palawan}
-						alt="Palawan"
-						width={100}
-						height={350}
-						className="max-h-[350px] mx-[20px"
-					/>
-					<Image
-						src={Cover}
-						alt="Cover"
-						width={100}
-						height={350}
-						className="max-h-[350px]"
-					/>
-					<Image
-						src={Teracess}
-						alt="Teracess"
-						width={100}
-						height={350}
-						className="max-h-[350px]"
-					/>
-					<Image
-						src={Mayon}
-						alt="Mayon"
-						width={100}
-						height={350}
-						className="max-h-[350px]"
-					/> */}
+					{/* <div className="w-1/3 bg-gray-500 border">1</div>
+					<div className="w-1/3 bg-gray-500 border">2</div>
+					<div className="w-1/3 bg-gray-500 border">3</div>
+					<div className="w-1/3 bg-gray-500 border">4</div> */}
+					{images.map((item, index) => (
+						<div
+							className={currIndex == index ? `slide activeSlide` : `slide`}
+							key={index}
+						>
+							<Image
+								src={item}
+								key={index}
+								alt={item}
+								width={400}
+								height={350}
+							/>
+							<span className="text-white">Philippine</span>
+						</div>
+					))}
 				</Slider>
 			</div>
 		</div>
